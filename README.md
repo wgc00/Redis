@@ -55,7 +55,7 @@ Redis（K-V数据库）
   23、strLen      &emsp;  返回一个key的长度   
  
   
- ### Hash
+ ### 三、Hash
    
    1、 hset           设置一个值或多个值   
    2、 hget           获取一个值    
