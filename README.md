@@ -55,3 +55,20 @@ Redis（K-V数据库）
   23、strLen      &emsp;  返回一个key的长度   
  
   
+ ### Hash
+   
+   1、 hset           设置一个值或多个值
+   2、 hget           获取一个值
+   3、 hgetall        获取全部的值
+   4、 hmset          设置一个名字多个属性名和值
+   5、 hmget          可以获取多个值
+   6、 hdel           删除多个或一个
+   7、 hexists        判断这个元素中是否存在，使用field作为条件
+   8、 hincrby        可以加减，+数值， -数值
+   9、 hincrbyfloat   可以加减，+小数， -小数
+   10、hkeys         返回一个key所在的field
+   11、hlen          获取长度
+   12、hsetnx        key不予许重复
+   13、hvals         返回key中的值
+   14、hscan         迭代器（数据多时，一般我们不适用keys查询）
+   15、hstrlen       key的长度
