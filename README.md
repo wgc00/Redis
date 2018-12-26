@@ -23,7 +23,7 @@ Redis（K-V数据库）
   15、randomkey     &emsp; 随机读取一个key      
   16、rename        &emsp; 修改key的名字  
   17、renamenx      &emsp; 如果key存在，修改失败返回0，不存在修改成功，返回1  
-  18、restorem      序列化  
+  18、restore       &emsp;   序列化  
   19、sort          &emsp; 排序，如果sort key desc 反序  
   20、ttl           &emsp; 查询时间秒  
   21、type          &emsp; 查询类型  
