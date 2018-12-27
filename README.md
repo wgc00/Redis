@@ -72,3 +72,5 @@ Redis（K-V数据库）
    13、hvals          &emsp;返回key中的值  
    14、hscan          &emsp;迭代器（数据多时，一般我们不适用keys查询）  
    15、hstrlen        &emsp;key的长度  
+   
+   ### List
