@@ -73,7 +73,8 @@ public class JedisServiceTest {
         /*
         * 使用注解的原理和上面写的IO流的输入和输出都是一样的
         * */
-        List<PUser> pUsers = service.anncationSelectAll();
+       // List<PUser> pUsers = service.annotaitionSelectAll();
+        List<PUser> pUsers = service.adminSelect();
         System.out.println(pUsers);
     }
 
@@ -87,5 +88,12 @@ public class JedisServiceTest {
         ObjectInputStream ois = new ObjectInputStream(fis);
         Object o = ois.readObject();
         System.out.println(o);
+    }
+
+    /*AOP*/
+    @Test
+    public void testAOP() {
+        List<PUser> pUsers = service.selectAOP();
+        System.out.println(pUsers);
     }
 }

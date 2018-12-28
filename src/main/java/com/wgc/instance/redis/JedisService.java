@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.wgc.instance.aop.UserAOP;
 import com.wgc.instance.dao.PUserMapper;
 import com.wgc.instance.entity.PUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -118,11 +120,22 @@ public class JedisService {
 
     //使用注解的方式启动缓存
     @Cacheable("PU")
-    public List<PUser> anncationSelectAll() {
+    public List<PUser> annotaitionSelectAll() {
         List<PUser> pUsers = mapper.selectAll();
         return pUsers;
     }
 
+    @Cacheable(value = "listPU", keyGenerator = "myKeyGenerator")
+    public List<PUser> selectTlte() {
+        List<PUser> pUsers = mapper.selectAll();
+        return pUsers;
+    }
+
+    //当我我们管理员调用在后台修改数据，但又没有在Redis修改，这时数据的对比有误差了
+    @CachePut("listPU")
+    public List<PUser> adminSelect() {
+       return mapper.selectAll();
+    }
     //读入到文件中
     public void readFile() throws IOException {
         /*实际的环境中我们是不是抛异常的，要处理这个异常*/
@@ -132,4 +145,11 @@ public class JedisService {
         oos.writeObject(new PUser("王五"));
         oos.close();
     }
+
+    /*使用AOP的形式*/
+    @UserAOP
+    public List<PUser> selectAOP() {
+        return mapper.selectAll();
+    }
+
 }

@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.EnvironmentAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
@@ -18,8 +16,8 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -32,7 +30,8 @@ import java.io.IOException;
 @Configuration
 /*@ComponentScan(basePackages = "dynamicProxy.instanceJDBC7")*/ //测试AOP
 //@ComponentScan(basePackages = "transaction.instance1")
-//@EnableAspectJAutoProxy /*启用@Aspect类*/
+@ComponentScan("com.wgc.instance.aop")
+@EnableAspectJAutoProxy /*启用@Aspect类*/
 //@EnableTransactionManagement/*启用事务*/
 //@ComponentScan(basePackages = "com.wgc.instance.dao")
 @EnableCaching //启动缓存机制
@@ -94,19 +93,27 @@ public class SpringDAOConfig implements EnvironmentAware {
     }
 
     /*redis模板*/
-    @Bean
+
+
+ /*   @Bean
     public RedisTemplate redisTemplate() {
         return new StringRedisTemplate(redisConnectionFactory());
     }
-
-    /**/
+*/
+    /*RedisCacheManager配置后就不用配置RedisTemplate了*/
     @Bean
     public RedisCacheManager redisCacheManager() {
-        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig().computePrefixWith(cacheName -> cacheName);
-        RedisCacheManager manager = RedisCacheManager.builder(redisConnectionFactory()).cacheDefaults(configuration).build();
-        return manager;
-    }
+        RedisCacheConfiguration configuration = RedisCacheConfiguration
+                .defaultCacheConfig()
+                .computePrefixWith(cacheName -> cacheName)
+                //头部使用字符串序列化
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string()))
+                //有四种方法序列化、默认jdk的序列化
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));
 
+        return RedisCacheManager.builder(redisConnectionFactory()).cacheDefaults(configuration).build();
+
+    }
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean() throws IOException, PropertyVetoException {

@@ -9,6 +9,8 @@ public class PUser implements Serializable {
 
     private String name;
 
+    //transient关键字，中文意思排除、短暂的，在序列化的是时候排除某些字段
+    transient private String secret;
     public PUser() {}
 
     public PUser(String name) {
