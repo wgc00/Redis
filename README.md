@@ -74,11 +74,23 @@ Redis（K-V数据库）
    15、hstrlen        &emsp;key的长度  
    
    ### 四、List
-   lpush         保存，（如果是使用lpop弹出的话，是先进后出）比如：插入1、2、3 查询是3、2、1、   
-   lpop          弹出一个元素，取出一个元素，但这个元素也会被删除（弹出最后插入的数）    
-   lrange        查看集合中的值    
-   llen          获取长度    
-   rpush         保存，插入是：1、2、3  查询是：1、2、3   
-   rpop          弹出一个元素，取出一个元素，但这个元素也会被删除（弹出最先插入的数）   
+   lpush       &emsp;  保存，（如果是使用lpop弹出的话，是先进后出）比如：插入1、2、3 查询是3、2、1、   
+   lpop        &emsp;  弹出一个元素，取出一个元素，但这个元素也会被删除（弹出最后插入的数）    
+   lrange      &emsp;  查看集合中的值    
+   llen        &emsp; 获取长度    
+   rpush       &emsp;  保存，插入是：1、2、3  查询是：1、2、3   
+   rpop        &emsp;  弹出一个元素，取出一个元素，但这个元素也会被删除（弹出最先插入的数）   
    ### 五、Set
+   1、sadd  		&emsp;添加重复的元素、但值不能一样
+   2、smembers &emsp;	查看sadd添加的元素
+   3、scard		&emsp;查看sadd的元素长度，如没有返回0
+   4、sdiff		&emsp;返回两个sadd不同的元素值
+   5、sismember	&emsp;判断member元素中是否有这个值，没有返回0，有返回1
+   6、smove		&emsp;移除一个元素
+   7、spop		&emsp;移除一个随机的元素
+   8、srandmember	&emsp;返回一个随机的元素，但不会删除元素
+   9、srem		&emsp;可以同时删除多个元素或一个
+   10、sunion	&emsp;两个key相连在一起，如果有相同的值，只会要一个
+   11、sunionstore	&emsp;多个key相连在一起，如果有相同的值，只会要一个
+   12、sscan 	
    ### 六、
