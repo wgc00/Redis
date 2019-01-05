@@ -85,7 +85,7 @@ Redis（K-V数据库）
    2、smembers &emsp;	查看sadd添加的元素  
    3、scard		&emsp;查看sadd的元素长度，如没有返回0  
    4、sdiff		&emsp;返回两个sadd不同的元素值  
-   5、sismember	&emsp;判断member元素中是否有这个值，没有返回0，有返回1  
+   5、sismember	&emsp;判断member元素中是否有这个值，没有返回0，有返回1     
    6、smove		&emsp;移除一个元素  
    7、spop		&emsp;移除一个随机的元素  
    8、srandmember	&emsp;返回一个随机的元素，但不会删除元素  
